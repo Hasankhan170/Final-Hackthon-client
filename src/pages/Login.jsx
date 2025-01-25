@@ -265,7 +265,7 @@ const Login = () => {
 
         setTimeout(() => {
           alert("Successfully logged in");
-          // navigate("/Dashboard");
+          navigate("/Dashboard");
         }, 1000);
       } else {
         console.error("Access token is not returned in the response");
