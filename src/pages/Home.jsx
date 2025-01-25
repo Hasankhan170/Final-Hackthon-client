@@ -16,12 +16,12 @@ const Home = () => {
   // };
   const allBlogs = async () => {
     try {
-        const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post", {
-   headers: {
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Replace 'accessToken' if you store it differently
-  },
-});
-        console.log("Fetched Posts:", response.data.data);
+        const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post", 
+  //  headers: {
+  //   Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Replace 'accessToken' if you store it differently
+  // },
+);
+        console.log("Fetched Posts:", response.data);
         setBlogs(response.data.data);
     } catch (error) {
         console.error("Error fetching posts:", error);
