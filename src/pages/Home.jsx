@@ -168,6 +168,7 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const loanOptions = {
@@ -176,14 +177,14 @@ const Home = () => {
     "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
     "Education Loan": ["University Fees", "Child Fees Loan"],
   };
+  const navigate = useNavigate()
 
-  // State for selected loan type and subcategory
   const [loanType, setLoanType] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("");
 
-  // Handle form submission
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -194,20 +195,12 @@ const Home = () => {
         amount,
         duration,
       });
-
       console.log(response);
-      
+      alert("Loan application submitted successfully!");
+      navigate("/Register")
 
-    //   if (response.status === 201) {
-    //     alert(response.data.message);
-    //   } else {
-    //     alert(response.data.message);
-    //   }
     } catch (error) {
       console.error("Error applying for loan:", error);
-    //   alert(
-    //     error.response?.data?.message || "An unexpected error occurred. Please try again later."
-    //   );
     }
   };
 
