@@ -119,41 +119,48 @@ import { useEffect, useState } from "react";
 // export default MyComponent;
 
 
+
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [error, setError] = useState(null);
+    const [blogs, setBlogs] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-  const allBlogs = async () => {
-      try {
-          const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
-          console.log("Fetched Posts:", response.data.posts); // Check the structure
-          setBlogs(response.data.posts || []); // Ensure it's an array
-      } catch (err) {
-          console.error("Error fetching posts:", err.message);
-          setError("Failed to fetch posts");
-          setBlogs([]);
-      }
-  };
+    const allBlogs = async () => {
+        try {
+            const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
+            console.log("Fetched Posts:", response.data.posts); // Check the structure
+            setBlogs(response.data.posts || []); // Ensure it's an array
+        } catch (err) {
+            console.error("Error fetching posts:", err.message);
+            setError("Failed to fetch posts");
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    };
 
-  useEffect(() => {
-      allBlogs(); // Fetch blogs on mount
-  }, []);
+    useEffect(() => {
+        allBlogs(); // Fetch blogs on mount
+    }, []);
 
-  return (
-      <div>
-          {console.log("Blogs to Render:", blogs)} {/* Debugging */}
-          {error && <p>{error}</p>}
-          {blogs.length > 0 ? (
-              <ul>
-                  {blogs.map((blog) => (
-                      <li key={blog._id}>{blog.content}</li> // Use an alternative unique field if `_id` is missing
-                  ))}
-              </ul>
-          ) : (
-              <p>No blogs available.</p>
-          )}
-      </div>
-  );
+    return (
+        <div>
+            {console.log("Blogs to Render in JSX:", blogs)} {/* Debugging */}
+            {isLoading ? (
+                <p>Loading blogs...</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : blogs.length > 0 ? (
+                <ul>
+                    {blogs.map((blog) => (
+                        <li key={blog._id || blog.id}>{blog.content}</li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No blogs available.</p>
+            )}
+        </div>
+    );
 };
 
 export default Home;
+
