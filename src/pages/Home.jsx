@@ -166,6 +166,7 @@
 
 // export default Home;
 
+import axios from "axios";
 import { useState } from "react";
 
 const Home = () => {
@@ -174,7 +175,7 @@ const Home = () => {
     "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
     "Home Construction Loan": ["Structure", "Finishing"],
     "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
-    "Education Loan": ["University Fees", "Child Fees Loan"]
+    "Education Loan": ["University Fees", "Child Fees Loan"],
   };
 
   // State for selected loan type and subcategory
@@ -186,17 +187,25 @@ const Home = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch("https://boiler-plate-mu.vercel.app/api/loan/loan",);
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
+      const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/apply", {
+        loanType,
+        subcategory,
+        amount,
+        duration,
+      });
+
+      if (response.status === 201) {
+        alert(response.data.message); // Success message from server
       } else {
-        alert(data.message);
+        alert(response.data.message); // Handle other statuses
       }
     } catch (error) {
       console.error("Error applying for loan:", error);
-      alert("An error occurred.");
+      alert(
+        error.response?.data?.message || "An unexpected error occurred. Please try again later."
+      );
     }
   };
 
@@ -284,4 +293,5 @@ const Home = () => {
 };
 
 export default Home;
+
 
