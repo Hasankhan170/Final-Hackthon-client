@@ -16,14 +16,15 @@ const Home = () => {
   // };
   const allBlogs = async () => {
     try {
-        const response = await axios.get("http://localhost:3000/api/userPost/post");
+        const response = await axios.get("https://boiler-plate-mu.vercel.app/api/User/post"); // Ensure the URL matches your backend
         console.log("Fetched Posts:", response.data.data);
-        setBlogs(response.data.data); // Assuming `data` contains the posts array
+        setBlogs(response.data.data);
     } catch (error) {
         console.error("Error fetching posts:", error);
-        setBlogs([]); // Reset blogs on error
+        setBlogs([]);
     }
 };
+
 
   useEffect(() => {
     allBlogs();
