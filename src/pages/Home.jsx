@@ -16,7 +16,7 @@ const Home = () => {
   // };
   const allBlogs = async () => {
     try {
-        const response = await axios.get("https://boiler-plate-mu.vercel.app/api/User/post"); // Ensure the URL matches your backend
+        const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post"); // Ensure the URL matches your backend
         console.log("Fetched Posts:", response.data.data);
         setBlogs(response.data.data);
     } catch (error) {
