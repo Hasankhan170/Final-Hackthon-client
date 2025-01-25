@@ -187,12 +187,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://boiler-plate-mu.vercel.app/api/loan/loan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loanType, subcategory, amount, duration }),
-      });
-
+      const response = await fetch("https://boiler-plate-mu.vercel.app/api/loan/loan",);
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
