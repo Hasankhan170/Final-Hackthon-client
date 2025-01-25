@@ -152,7 +152,7 @@ const Register = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
-      formData.append("password", data.password);
+      formData.append("cnic", data.cnic);
     
       try {
         const response = await axios.post(
