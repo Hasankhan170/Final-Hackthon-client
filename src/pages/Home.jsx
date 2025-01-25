@@ -4,16 +4,26 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
 
+  // const allBlogs = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:3000/api/User/post");
+  //     console.log(response.data.data);
+  //     setBlogs(response.data.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     setBlogs([]);
+  //   }
+  // };
   const allBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/blogs/allBlogs");
-      console.log(response.data.data);
-      setBlogs(response.data.data);
+        const response = await axios.get("http://localhost:3000/api/User/post");
+        console.log("Fetched Posts:", response.data.data);
+        setBlogs(response.data.data); // Assuming `data` contains the posts array
     } catch (error) {
-      console.error(error);
-      setBlogs([]);
+        console.error("Error fetching posts:", error);
+        setBlogs([]); // Reset blogs on error
     }
-  };
+};
 
   useEffect(() => {
     allBlogs();
@@ -28,18 +38,20 @@ const Home = () => {
             {blogs.map((blog) => (
               <div key={blog._id} className="card w-full bg-base-100 shadow-xl" style={{ minHeight: '250px' }}>
                 <div className="card-body" style={{ padding: '16px' }}>
-                  {blog.author.image && (
-                    <img
-                      src={blog.author.image} 
-                      alt="User Profile"
-                      style={{
-                        width: '50px',
-                        height: '50px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  )}
+                {blog.createdBy?.image && (
+  <img
+    src={blog.createdBy.image}
+    alt="Author Profile"
+    style={{
+      width: "50px",
+      height: "50px",
+      borderRadius: "50%",
+      objectFit: "cover",
+    }}
+  />
+)}
+<h3>{blog.createdBy?.name}</h3> {/* Display author name */}
+
                   <h2 className="card-title">{blog.title}</h2>
                   <div
                     style={{
