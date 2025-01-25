@@ -77,17 +77,57 @@ import { useEffect, useState } from "react";
 //   );
 // };
 
-const MyComponent = () => {
-  const [blogs, setBlogs] = useState([]); 
-  const [error, setError] = useState(null); 
+// const MyComponent = () => {
+//   const [blogs, setBlogs] = useState([]); 
+//   const [error, setError] = useState(null); 
+
+//   const allBlogs = async () => {
+//       try {
+//           const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
+//           console.log("Fetched Posts:", response.data.posts); 
+//           console.log("Fetched Posts:", response.data.posts); 
+
+//           setBlogs(response.data.posts); 
+//       } catch (err) {
+//           console.error("Error fetching posts:", err.message);
+//           setError("Failed to fetch posts");
+//           setBlogs([]);
+//       }
+//   };
+
+//   useEffect(() => {
+//       allBlogs()
+//   }, []);
+
+//   return (
+//       <div>
+//           {error && <p>{error}</p>}
+//           {blogs.length > 0 ? (
+//               <ul>
+//                   {blogs.map((blog) => (
+//                       <li key={blog._id}>{blog.title}</li>
+//                   ))}
+//               </ul>
+//           ) : (
+//               <p>No blogs available.</p>
+//           )}
+//       </div>
+//   );
+// };
+
+
+// export default MyComponent;
+
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState(null);
 
   const allBlogs = async () => {
       try {
           const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
-          console.log("Fetched Posts:", response.data.posts.content); 
-          console.log("Fetched Posts:", response.data.posts.image); 
-
-          setBlogs(response.data.posts); 
+          console.log("Fetched Posts:", response.data.posts); // Check the structure
+          setBlogs(response.data.posts || []); // Ensure it's an array
       } catch (err) {
           console.error("Error fetching posts:", err.message);
           setError("Failed to fetch posts");
@@ -96,16 +136,17 @@ const MyComponent = () => {
   };
 
   useEffect(() => {
-      allBlogs()
+      allBlogs(); // Fetch blogs on mount
   }, []);
 
   return (
       <div>
+          {console.log("Blogs to Render:", blogs)} {/* Debugging */}
           {error && <p>{error}</p>}
           {blogs.length > 0 ? (
               <ul>
                   {blogs.map((blog) => (
-                      <li key={blog._id}>{blog.title}</li>
+                      <li key={blog._id || blog.id}>{blog.title}</li> // Use an alternative unique field if `_id` is missing
                   ))}
               </ul>
           ) : (
@@ -115,5 +156,4 @@ const MyComponent = () => {
   );
 };
 
-
-export default MyComponent;
+export default Home;
