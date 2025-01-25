@@ -17,7 +17,7 @@ const Home = () => {
   const allBlogs = async () => {
     try {
         const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post", {
-  headers: {
+   headers: {
     Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Replace 'accessToken' if you store it differently
   },
 });
