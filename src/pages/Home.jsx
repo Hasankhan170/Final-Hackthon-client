@@ -84,7 +84,7 @@ const MyComponent = () => {
   const allBlogs = async () => {
       try {
           const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
-          console.log("Fetched Posts:", response.data); 
+          console.log("Fetched Posts:", response.data.post); 
           setBlogs(response.data.posts); 
       } catch (err) {
           console.error("Error fetching posts:", err.message);
