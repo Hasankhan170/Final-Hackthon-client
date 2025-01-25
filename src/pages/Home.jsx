@@ -152,7 +152,10 @@ const Home = () => {
             ) : blogs.length > 0 ? (
                 <ul>
                     {blogs.map((blog) => (
-                        <li key={blog._id || blog.id}>{blog.content}</li>
+                        <div key={blog._id || blog.id}>
+                          <h3>{blog.content}</h3>
+                          <img src={blog.image} alt="" />
+                        </div>
                     ))}
                 </ul>
             ) : (
