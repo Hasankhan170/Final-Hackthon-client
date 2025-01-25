@@ -242,7 +242,7 @@ import { setUser } from "../../Redux/reducer/userSlice";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch(); // Use dispatch to call actions
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -288,8 +288,15 @@ const Login = () => {
     <div className="flex justify-center mt-5 p-5">
       <form style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }} className="p-8 w-full max-w-md bg-white rounded-lg" onSubmit={handleSubmit(login)}>
         <h1 className="text-lg font-bold p-2 mb-5">Login</h1>
-        <input className="input input-bordered w-full mb-3" {...register("email", { required: "Email is required" })} type="email" placeholder="Email" />
-        {errors.email && <p className="text-red-500 mb-2 text-start mx-1">{errors.email.message}</p>}
+        <input
+          className="input input-bordered w-full mb-3"
+          {...register("cnic", { required: "CNIC is required" })}
+          type="text"
+          placeholder="CNIC (e.g., 12345-6789012-3)"
+        />
+        {errors.cnic && (
+          <p className="text-red-500 mb-2 text-start mx-1">{errors.cnic.message}</p>
+        )}
 
         <input className="input input-bordered w-full mb-3" {...register("password", { required: "Password is required" })} type="password" placeholder="Password" />
         {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
