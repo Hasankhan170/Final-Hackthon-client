@@ -16,7 +16,7 @@ const Home = () => {
   // };
   const allBlogs = async () => {
     try {
-        const response = await axios.get("http://localhost:3000/api/User/post");
+        const response = await axios.get("http://localhost:3000/api/userPost/post");
         console.log("Fetched Posts:", response.data.data);
         setBlogs(response.data.data); // Assuming `data` contains the posts array
     } catch (error) {
