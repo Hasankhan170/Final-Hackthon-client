@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 
 // const Home = () => {
 //   const [blogs, setBlogs] = useState([]);
@@ -120,50 +119,173 @@ import { useEffect, useState } from "react";
 
 
 
-const Home = () => {
-    const [blogs, setBlogs] = useState([]);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+// const Home = () => {
+//     const [blogs, setBlogs] = useState([]);
+//     const [error, setError] = useState(null);
+//     const [isLoading, setIsLoading] = useState(true);
 
-    const allBlogs = async () => {
-        try {
-            const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
-            console.log("Fetched Posts:", response.data.posts); // Check the structure
-            setBlogs(response.data.posts || []); // Ensure it's an array
-        } catch (err) {
-            console.error("Error fetching posts:", err.message);
-            setError("Failed to fetch posts");
-        } finally {
-            setIsLoading(false); // Stop loading
-        }
-    };
+//     const allBlogs = async () => {
+//         try {
+//             const response = await axios.get("https://boiler-plate-mu.vercel.app/api/UserPost/post");
+//             console.log("Fetched Posts:", response.data.posts); // Check the structure
+//             setBlogs(response.data.posts || []); // Ensure it's an array
+//         } catch (err) {
+//             console.error("Error fetching posts:", err.message);
+//             setError("Failed to fetch posts");
+//         } finally {
+//             setIsLoading(false); // Stop loading
+//         }
+//     };
 
-    useEffect(() => {
-        allBlogs(); // Fetch blogs on mount
-    }, []);
+//     useEffect(() => {
+//         allBlogs(); // Fetch blogs on mount
+//     }, []);
 
-    return (
+//     return (
+//         <div>
+//             {console.log("Blogs to Render in JSX:", blogs)} {/* Debugging */}
+//             {isLoading ? (
+//                 <p>Loading blogs...</p>
+//             ) : error ? (
+//                 <p>{error}</p>
+//             ) : blogs.length > 0 ? (
+//                 <ul>
+//                     {blogs.map((blog) => (
+//                         <div key={blog._id || blog.id}>
+//                           <h3>{blog.content}</h3>
+//                           <img src={blog.image} alt="" />
+//                         </div>
+//                     ))}
+//                 </ul>
+//             ) : (
+//                 <p>No blogs available.</p>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default Home;
+
+import { useState } from "react";
+
+const LoanApplication = () => {
+  // Loan types and subcategories
+  const loanOptions = {
+    "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
+    "Home Construction Loan": ["Structure", "Finishing"],
+    "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
+    "Education Loan": ["University Fees", "Child Fees Loan"]
+  };
+
+  // State for selected loan type and subcategory
+  const [loanType, setLoanType] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+  const [amount, setAmount] = useState("");
+  const [duration, setDuration] = useState("");
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/loan/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ loanType, subcategory, amount, duration }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error applying for loan:", error);
+      alert("An error occurred.");
+    }
+  };
+
+  return (
+    <div className="p-6 max-w-lg mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Apply for a Loan</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Loan Type Dropdown */}
         <div>
-            {console.log("Blogs to Render in JSX:", blogs)} {/* Debugging */}
-            {isLoading ? (
-                <p>Loading blogs...</p>
-            ) : error ? (
-                <p>{error}</p>
-            ) : blogs.length > 0 ? (
-                <ul>
-                    {blogs.map((blog) => (
-                        <div key={blog._id || blog.id}>
-                          <h3>{blog.content}</h3>
-                          <img src={blog.image} alt="" />
-                        </div>
-                    ))}
-                </ul>
-            ) : (
-                <p>No blogs available.</p>
-            )}
+          <label className="block mb-1 font-medium">Loan Type</label>
+          <select
+            value={loanType}
+            onChange={(e) => {
+              setLoanType(e.target.value);
+              setSubcategory(""); // Reset subcategory when loan type changes
+            }}
+            className="w-full border p-2 rounded"
+            required
+          >
+            <option value="" disabled>Select Loan Type</option>
+            {Object.keys(loanOptions).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
-    );
+
+        {/* Subcategory Dropdown */}
+        {loanType && (
+          <div>
+            <label className="block mb-1 font-medium">Subcategory</label>
+            <select
+              value={subcategory}
+              onChange={(e) => setSubcategory(e.target.value)}
+              className="w-full border p-2 rounded"
+              required
+            >
+              <option value="" disabled>Select Subcategory</option>
+              {loanOptions[loanType].map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {/* Amount Input */}
+        <div>
+          <label className="block mb-1 font-medium">Amount (PKR)</label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full border p-2 rounded"
+            placeholder="Enter loan amount"
+            required
+          />
+        </div>
+
+        {/* Duration Input */}
+        <div>
+          <label className="block mb-1 font-medium">Duration (Years)</label>
+          <input
+            type="number"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            className="w-full border p-2 rounded"
+            placeholder="Enter duration in years"
+            required
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+        >
+          Submit Loan Application
+        </button>
+      </form>
+    </div>
+  );
 };
 
-export default Home;
-
+export default LoanApplication;
