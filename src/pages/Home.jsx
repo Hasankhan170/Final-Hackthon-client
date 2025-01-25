@@ -166,43 +166,30 @@
 
 // export default Home;
 
-import { useState } from "react";
+import  { useState } from "react";
 
 const LoanApplication = () => {
-  // Loan types and subcategories
+  // Loan Types and Subcategories Mapping
   const loanOptions = {
     "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
     "Home Construction Loan": ["Structure", "Finishing"],
     "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
-    "Education Loan": ["University Fees", "Child Fees Loan"]
+    "Education Loan": ["University Fees", "Child Fees Loan"],
   };
 
-  // State for selected loan type and subcategory
+  // States for loanType, subcategory, and form data
   const [loanType, setLoanType] = useState("");
   const [subcategory, setSubcategory] = useState("");
-  const [amount, setAmount] = useState("");
-  const [duration, setDuration] = useState("");
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  // Form submission handler
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("/api/loan/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loanType, subcategory, amount, duration }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.message);
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error("Error applying for loan:", error);
-      alert("An error occurred.");
+    if (!loanType || !subcategory) {
+      alert("Please select a loan type and subcategory.");
+      return;
     }
+    alert(`Loan Type: ${loanType}\nSubcategory: ${subcategory}`);
+    // Add API call logic here if needed
   };
 
   return (
@@ -221,7 +208,9 @@ const LoanApplication = () => {
             className="w-full border p-2 rounded"
             required
           >
-            <option value="" disabled>Select Loan Type</option>
+            <option value="" disabled>
+              Select Loan Type
+            </option>
             {Object.keys(loanOptions).map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -240,7 +229,9 @@ const LoanApplication = () => {
               className="w-full border p-2 rounded"
               required
             >
-              <option value="" disabled>Select Subcategory</option>
+              <option value="" disabled>
+                Select Subcategory
+              </option>
               {loanOptions[loanType].map((sub) => (
                 <option key={sub} value={sub}>
                   {sub}
@@ -249,32 +240,6 @@ const LoanApplication = () => {
             </select>
           </div>
         )}
-
-        {/* Amount Input */}
-        <div>
-          <label className="block mb-1 font-medium">Amount (PKR)</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="w-full border p-2 rounded"
-            placeholder="Enter loan amount"
-            required
-          />
-        </div>
-
-        {/* Duration Input */}
-        <div>
-          <label className="block mb-1 font-medium">Duration (Years)</label>
-          <input
-            type="number"
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            className="w-full border p-2 rounded"
-            placeholder="Enter duration in years"
-            required
-          />
-        </div>
 
         {/* Submit Button */}
         <button
