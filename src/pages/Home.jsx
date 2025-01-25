@@ -189,7 +189,7 @@ const Home = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/apply", {
+      const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/loan", {
         loanType,
         subcategory,
         amount,
