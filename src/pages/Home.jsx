@@ -146,7 +146,7 @@ const Home = () => {
           {blogs.length > 0 ? (
               <ul>
                   {blogs.map((blog) => (
-                      <li key={blog._id || blog.id}>{blog.title}</li> // Use an alternative unique field if `_id` is missing
+                      <li key={blog._id}>{blog.content}</li> // Use an alternative unique field if `_id` is missing
                   ))}
               </ul>
           ) : (
