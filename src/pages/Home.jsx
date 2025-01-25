@@ -170,7 +170,6 @@ import axios from "axios";
 import { useState } from "react";
 
 const Home = () => {
-  // Loan types and subcategories
   const loanOptions = {
     "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
     "Home Construction Loan": ["Structure", "Finishing"],
@@ -196,16 +195,19 @@ const Home = () => {
         duration,
       });
 
-      if (response.status === 201) {
-        alert(response.data.message); // Success message from server
-      } else {
-        alert(response.data.message); // Handle other statuses
-      }
+      console.log(response);
+      
+
+    //   if (response.status === 201) {
+    //     alert(response.data.message);
+    //   } else {
+    //     alert(response.data.message);
+    //   }
     } catch (error) {
       console.error("Error applying for loan:", error);
-      alert(
-        error.response?.data?.message || "An unexpected error occurred. Please try again later."
-      );
+    //   alert(
+    //     error.response?.data?.message || "An unexpected error occurred. Please try again later."
+    //   );
     }
   };
 
@@ -213,14 +215,13 @@ const Home = () => {
     <div className="p-6 max-w-lg mx-auto">
       <h1 className="text-2xl font-bold mb-4">Apply for a Loan</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Loan Type Dropdown */}
         <div>
           <label className="block mb-1 font-medium">Loan Type</label>
           <select
             value={loanType}
             onChange={(e) => {
               setLoanType(e.target.value);
-              setSubcategory(""); // Reset subcategory when loan type changes
+              setSubcategory(""); 
             }}
             className="w-full border p-2 rounded"
             required
@@ -234,7 +235,6 @@ const Home = () => {
           </select>
         </div>
 
-        {/* Subcategory Dropdown */}
         {loanType && (
           <div>
             <label className="block mb-1 font-medium">Subcategory</label>
@@ -254,7 +254,6 @@ const Home = () => {
           </div>
         )}
 
-        {/* Amount Input */}
         <div>
           <label className="block mb-1 font-medium">Amount (PKR)</label>
           <input
@@ -267,7 +266,7 @@ const Home = () => {
           />
         </div>
 
-        {/* Duration Input */}
+
         <div>
           <label className="block mb-1 font-medium">Duration (Years)</label>
           <input
@@ -280,7 +279,6 @@ const Home = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
