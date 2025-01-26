@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logout from "../pages/Logout.jsx";
+// import Logout from "../pages/Logout.jsx";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -69,12 +69,12 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <li>
+                {/* <li>
                   <Link to="/Dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <Logout />
-                </li>
+                </li> */}
               </>
             )}
           </ul>
