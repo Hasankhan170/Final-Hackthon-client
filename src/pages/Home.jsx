@@ -274,7 +274,7 @@ const Home = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="btn bg-info hover:bg-info w-full text-lg text-white"
         >
           Submit Loan Application
         </button>
