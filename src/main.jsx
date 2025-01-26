@@ -10,18 +10,19 @@ import Home from "./pages/Home.jsx";
 import { store } from "../Redux/store/store.js";
 import { Provider } from "react-redux";
 
+// Define the routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App />, // App component is the wrapper
     children: [
+      {
+        path: "/", // Default route that will show the Home page
+        element: <Home />, // Home will be displayed first
+      },
       {
         path: "/Register",
         element: <Register />,
-      },
-      {
-        path: "/Home",
-        element: <Home />,
       },
       {
         path: "/Login",
@@ -39,13 +40,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Render the app
 createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-  <RouterProvider router={router}>
-
-      <App />
-   
-   
-  </RouterProvider>
-    </Provider>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

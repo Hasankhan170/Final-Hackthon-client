@@ -55,23 +55,23 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link to="/Home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
 
             {!isUserLoggedIn ? (
               <>
-                <li>
+                {/* <li>
                   <Link to="Login">Login</Link>
                 </li>
                 <li>
                   <Link to="Register">Register</Link>
-                </li>
+                </li> */}
               </>
             ) : (
               <>
-                <li>
+                {/* <li>
                   <Link to="/Dashboard">Dashboard</Link>
-                </li>
+                </li> */}
                 <li>
                   <Logout />
                 </li>
