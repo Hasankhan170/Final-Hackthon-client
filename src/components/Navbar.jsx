@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-// import Logout from "../pages/Logout.jsx";
+import Logout from "../pages/Logout.jsx";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -60,21 +60,21 @@ const Navbar = () => {
 
             {!isUserLoggedIn ? (
               <>
-                {/* <li>
+                <li>
                   <Link to="Login">Login</Link>
                 </li>
                 <li>
                   <Link to="Register">Register</Link>
-                </li> */}
+                </li>
               </>
             ) : (
               <>
-                {/* <li>
+                <li>
                   <Link to="/Dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <Logout />
-                </li> */}
+                </li>
               </>
             )}
           </ul>
